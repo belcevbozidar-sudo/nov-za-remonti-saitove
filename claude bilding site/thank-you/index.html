@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Получихме запитването ти – МайсторСайт</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:     #0b0d12;
+      --bg2:    #11141c;
+      --green:  #22c55e;
+      --orange: #f97316;
+      --text:   #f1f5f9;
+      --muted:  #94a3b8;
+      --border: rgba(255,255,255,0.08);
+    }
+    html, body {
+      height: 100%; font-family: 'Inter', sans-serif;
+      background: var(--bg); color: var(--text);
+      overflow-x: hidden;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: .4;
+    }
+
+    /* Glows */
+    .glow {
+      position: fixed; border-radius: 50%; filter: blur(100px); pointer-events: none; z-index: 0;
+    }
+    .glow-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(34,197,94,.15) 0%, transparent 70%);
+      top: -100px; left: 50%; transform: translateX(-50%);
+    }
+    .glow-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(249,115,22,.1) 0%, transparent 70%);
+      bottom: -80px; right: -100px;
+    }
+
+    /* Layout */
+    .page {
+      position: relative; z-index: 1;
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 40px 24px; text-align: center;
+    }
+
+    /* Check circle */
+    .check-wrap {
+      width: 120px; height: 120px; margin: 0 auto 36px;
+      position: relative;
+    }
+    .check-circle {
+      width: 120px; height: 120px; border-radius: 50%;
+      background: rgba(34,197,94,.1);
+      border: 2px solid rgba(34,197,94,.2);
+      display: flex; align-items: center; justify-content: center;
+      animation: circle-in .5s cubic-bezier(.34,1.56,.64,1) both;
+    }
+    @keyframes circle-in {
+      from { opacity: 0; transform: scale(.5); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    /* SVG checkmark */
+    .check-svg { width: 60px; height: 60px; }
+    .check-path {
+      fill: none;
+      stroke: var(--green);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 60;
+      stroke-dashoffset: 60;
+      animation: draw-check .6s .4s cubic-bezier(.65,0,.35,1) forwards;
+    }
+    @keyframes draw-check {
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* Pulse ring */
+    .pulse-ring {
+      position: absolute; inset: -8px; border-radius: 50%;
+      border: 2px solid var(--green);
+      animation: pulse-ring 1s .9s ease-out both;
+    }
+    @keyframes pulse-ring {
+      from { opacity: .6; transform: scale(1); }
+      to   { opacity: 0;  transform: scale(1.35); }
+    }
+
+    /* Text */
+    .ty-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(34,197,94,.1); color: var(--green);
+      border: 1px solid rgba(34,197,94,.25);
+      border-radius: 50px; padding: 6px 16px;
+      font-size: .76rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; margin-bottom: 20px;
+      animation: fade-up .5s .3s ease both;
+    }
+    h1 {
+      font-family: 'Manrope', sans-serif;
+      font-size: clamp(1.9rem, 5vw, 3rem);
+      font-weight: 800; line-height: 1.2;
+      animation: fade-up .5s .4s ease both;
+    }
+    h1 .hl { color: var(--green); }
+    .ty-sub {
+      margin-top: 16px; font-size: 1.05rem; color: var(--muted);
+      max-width: 480px; line-height: 1.7;
+      animation: fade-up .5s .5s ease both;
+    }
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Info cards */
+    .ty-cards {
+      display: flex; gap: 16px; margin-top: 40px; flex-wrap: wrap; justify-content: center;
+      animation: fade-up .5s .6s ease both;
+    }
+    .ty-card {
+      background: rgba(255,255,255,.04); border: 1px solid var(--border);
+      border-radius: 14px; padding: 20px 24px; min-width: 160px; flex: 1; max-width: 220px;
+    }
+    .ty-card .tc-icon { font-size: 1.5rem; margin-bottom: 10px; }
+    .ty-card .tc-title { font-size: .82rem; font-weight: 700; margin-bottom: 4px; }
+    .ty-card .tc-desc { font-size: .78rem; color: var(--muted); line-height: 1.5; }
+
+    /* Back button */
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 40px; padding: 14px 32px; border-radius: 50px;
+      background: transparent; border: 2px solid var(--border);
+      color: var(--muted); font-size: .9rem; font-weight: 600;
+      text-decoration: none; cursor: pointer;
+      transition: border-color .2s, color .2s;
+      animation: fade-up .5s .7s ease both;
+    }
+    .btn-back:hover { border-color: var(--green); color: var(--green); }
+
+    @media (max-width: 480px) {
+      .ty-cards { flex-direction: column; align-items: center; }
+      .ty-card { max-width: 100%; width: 100%; }
+    }
+  </style>
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '923372703416193');
+    fbq('track', 'PageView');
+    fbq('track', 'Lead');
+    fbq('track', 'Contact');
+    fbq('track', 'Purchase', { value: 320, currency: 'EUR' });
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=923372703416193&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+</head>
+<body>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
+  <div class="page">
+    <div class="check-wrap">
+      <div class="check-circle">
+        <svg class="check-svg" viewBox="0 0 60 60">
+          <polyline class="check-path" points="12,32 24,44 48,18" />
+        </svg>
+      </div>
+      <div class="pulse-ring"></div>
+    </div>
+
+    <div class="ty-tag">✓ Успешно изпратено</div>
+    <h1>Запитването ти<br><span class="hl">е при нас!</span></h1>
+    <p class="ty-sub">Скоро ще го разгледаме и ще започнем работа. За момента е запазил мястото си.</p>
+
+    <div class="ty-cards">
+      <div class="ty-card">
+        <div class="tc-icon">⏱️</div>
+        <div class="tc-title">Бързо демо</div>
+        <div class="tc-desc">Изграждаме демо версия за 2-3 работни дни</div>
+      </div>
+      <div class="ty-card">
+        <div class="tc-icon">💸</div>
+        <div class="tc-title">Без задължение</div>
+        <div class="tc-desc">Демото е напълно безплатно и без никакво задължение</div>
+      </div>
+      <div class="ty-card">
+        <div class="tc-icon">✏️</div>
+        <div class="tc-title">По твой вкус</div>
+        <div class="tc-desc">Довършваме всичко изцяло по твоите желания</div>
+      </div>
+    </div>
+
+    <a href="/" class="btn-back">← Обратно към сайта</a>
+  </div>
+</body>
+</html>

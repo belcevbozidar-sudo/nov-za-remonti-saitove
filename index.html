@@ -140,9 +140,14 @@
       60%       { box-shadow: 0 8px 24px rgba(220,38,38,.4), 0 0 0 12px rgba(220,38,38,0); }
     }
     @media (max-width: 700px) {
-      .urgency-inner { grid-template-columns: 1fr; gap: 20px; padding: 28px 24px; text-align: center; }
-      .urgency-counter { display: inline-flex; flex-direction: column; align-items: center; justify-self: center; }
-      .urgency-cta { justify-self: center; }
+      .urgency-inner { grid-template-columns: auto 1fr; gap: 16px; padding: 20px 18px; }
+      .urgency-counter { padding: 10px 14px; min-width: 64px; }
+      .urgency-counter .uc-num { font-size: 2rem; }
+      .urgency-counter .uc-label { font-size: .6rem; }
+      .urgency-body h3 { font-size: 1rem; }
+      .urgency-body p { font-size: .78rem; display: none; }
+      .urgency-cta { grid-column: 1 / -1; justify-self: stretch; }
+      .urgency-cta .btn-red { width: 100%; justify-content: center; padding: 12px 20px; font-size: .9rem; }
     }
 
     /* ─── NAV ─── */
@@ -527,8 +532,20 @@
       border-color: var(--orange); box-shadow: 0 0 0 3px rgba(249,115,22,.12);
     }
     .form-group textarea { resize: vertical; min-height: 110px; }
-    .form-submit { width: 100%; padding: 16px; font-size: 1rem; margin-top: 4px; border-radius: var(--radius-sm); justify-content: center; }
+    .form-submit { width: 100%; padding: 16px; font-size: 1rem; margin-top: 4px; border-radius: var(--radius-sm); justify-content: center; position: relative; }
     .modal-note { font-size: .75rem; color: var(--muted); text-align: center; margin-top: 12px; }
+
+    /* ─── SUBMIT SPINNER ─── */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .btn-loading { color: transparent !important; pointer-events: none; }
+    .btn-loading::after {
+      content: ''; position: absolute;
+      width: 20px; height: 20px;
+      border: 2px solid rgba(255,255,255,.35);
+      border-top-color: #fff; border-radius: 50%;
+      animation: spin .65s linear infinite;
+      top: 50%; left: 50%; margin: -10px 0 0 -10px;
+    }
 
     /* ─── FOOTER ─── */
     footer {
@@ -613,6 +630,24 @@
       .steps { grid-template-columns: 1fr; }
     }
   </style>
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '923372703416193');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=923372703416193&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -673,20 +708,20 @@
     <div class="hero-inner">
       <div class="hero-content">
         <div class="hero-badge"><span class="tag">🔨 За Майстори и Ремонтни Бизнеси</span></div>
-        <h1>Клиентите ти <span class="hl">те търсят онлайн</span> – намират ли те?</h1>
-        <p class="hero-sub">Правим професионален уебсайт специално за твоя ремонтен бизнес. Ти работиш – ние се грижим за онлайн присъствието ти. Без главоболия, без скрити такси.</p>
+        <h1>Клиентите избират майстора, <span class="hl">на когото се доверяват</span> – ти ли си той?</h1>
+        <p class="hero-sub">Преди да се обадят, клиентите проверяват дали имаш уебсайт. Ако нямаш – или ако изглежда зле – веднага избират конкурента. Ние правим сайт, който вдъхва доверие от първата секунда.</p>
         <div class="hero-actions">
           <button class="btn btn-orange" onclick="openModal()">Искам уебсайт →</button>
           <a href="#pricing" class="btn btn-outline">Виж цената</a>
         </div>
         <div class="hero-stats">
           <div class="hero-stat">
-            <div class="num">97%</div>
-            <div class="lbl">от хората търсят майстори в Google</div>
+            <div class="num">78%</div>
+            <div class="lbl">губят доверие към бизнес без уебсайт</div>
           </div>
           <div class="hero-stat">
             <div class="num">3×</div>
-            <div class="lbl">повече обаждания с уебсайт</div>
+            <div class="lbl">по-голям шанс да те наемат с професионален сайт</div>
           </div>
           <div class="hero-stat">
             <div class="num">320€</div>
@@ -700,7 +735,7 @@
             <div class="mockup-dot"></div>
             <div class="mockup-dot"></div>
             <div class="mockup-dot"></div>
-            <div class="mockup-url">🔒 www.vashetoime.bg</div>
+            <div class="mockup-url">🔒 www.vashetoime.com</div>
           </div>
           <div class="mockup-body">
             <div class="mock-hero-img">
@@ -796,7 +831,7 @@
     <div class="testi-section-head reveal">
       <span class="tag">⭐ Отзиви</span>
       <h2>Какво казват <span class="hl">нашите клиенти</span></h2>
-      <p class="section-sub">Майстори, точно като теб, които вече получават повече обаждания всеки ден.</p>
+      <p class="section-sub">Майстори, точно като теб, които вече изглеждат по-професионално и спечелват повече доверие от клиентите.</p>
     </div>
     <div class="testi-grid">
       <div class="testi-card reveal">
@@ -867,9 +902,9 @@
           <span class="uc-label">свободни<br>места</span>
         </div>
         <div class="urgency-body">
-          <div class="ub-tag">🔥 Май 2025</div>
+          <div class="ub-tag">🔥 Май 2026</div>
           <h3>За месец май остават само <span>няколко свободни места!</span></h3>
-          <p>Поемаме ограничен брой нови клиенти всеки месец, за да се фокусираме максимално върху всеки сайт и да гарантираме качество. Местата за май се изчерпват – не изчаквай.</p>
+          <p>Поемаме ограничен брой нови клиенти всеки месец, за да се фокусираме максимално върху всеки сайт и да гарантираме качество. Местата за май се изчерпват.</p>
         </div>
         <div class="urgency-cta">
           <button class="btn-red" onclick="openModal()">Запази място →</button>
@@ -885,31 +920,31 @@
   <div class="container">
     <div class="section-head reveal">
       <span class="tag">😰 Реалността</span>
-      <h2>Колко клиенти <span class="hl">губиш всеки ден</span> без уебсайт?</h2>
-      <p class="section-sub">Докато четеш това, хора в твоя град търсят точно твоята услуга в Google. Намират ли те теб – или конкурента ти?</p>
+      <h2>Без уебсайт губиш клиенти, <span class="hl">преди да са се обадили</span></h2>
+      <p class="section-sub">Клиентите решават на кого да се доверят още преди да вдигнат телефона. Уебсайтът ти е първото впечатление – и то или печели, или губи клиента.</p>
     </div>
     <div class="problem-grid">
       <div class="problem-card reveal">
-        <div class="pc-icon">🔍</div>
-        <span class="stat-highlight">97%</span>
-        <h3>Търсят онлайн преди да се обадят</h3>
-        <p>Почти всеки клиент днес първо отваря Google, преди да избере майстор. Ако те няма там – просто не съществуваш за тях.</p>
+        <div class="pc-icon">⏱️</div>
+        <span class="stat-highlight">3 сек.</span>
+        <h3>Толкова трябва на клиента да те прецени</h3>
+        <p>Когато клиент провери дали имаш уебсайт и какво представлява – решението му е взето за секунди. Без сайт или с грозен сайт – веднага избира конкурента, без изобщо да те е чул.</p>
       </div>
       <div class="problem-card reveal">
-        <div class="pc-icon">💸</div>
+        <div class="pc-icon">🤝</div>
         <span class="stat-highlight">78%</span>
-        <h3>Предпочитат бизнес с уебсайт</h3>
-        <p>Над 3/4 от хората се доверяват повече на майстор с официален сайт. Без сайт – изглеждаш по-малко сериозен от конкурента.</p>
+        <h3>Губят доверие без уебсайт</h3>
+        <p>Повечето хора днес очакват всеки сериозен бизнес да има уебсайт. Нямаш ли – изглеждаш по-малко надежден, дори да си по-добрият майстор в целия град.</p>
       </div>
       <div class="problem-card reveal">
-        <div class="pc-icon">📱</div>
-        <span class="stat-highlight">85%</span>
-        <h3>Търсят от телефон</h3>
-        <p>По-голямата част от търсенията стават от смартфон. Нашите сайтове са перфектно оптимизирани за мобилни устройства.</p>
+        <div class="pc-icon">🏆</div>
+        <span class="stat-highlight">1 от 2</span>
+        <h3>Клиенти отиват при конкурента</h3>
+        <p>Когато клиент сравнява двама майстори – единият с красив сайт, другият без – почти винаги избира този със сайта. Дори ако другият е по-евтин и по-добър.</p>
       </div>
     </div>
     <div style="text-align:center;margin-top:48px;" class="reveal">
-      <button class="btn btn-orange" onclick="openModal()" style="font-size:1.05rem;padding:18px 40px;">Не искам да губя повече клиенти →</button>
+      <button class="btn btn-orange" onclick="openModal()" style="font-size:1.05rem;padding:18px 40px;">Искам да изглеждам професионално →</button>
     </div>
   </div>
 </section>
@@ -939,7 +974,7 @@
         <div class="feature-icon green">🔒</div>
         <div class="feature-body">
           <h3>Домейн + Хостинг + SSL</h3>
-          <p>Безплатен домейн (.bg или .com), бърз хостинг и SSL сертификат – катинарчето в браузъра, което вдъхва доверие на клиентите.</p>
+          <p>Безплатен домейн, бърз хостинг и SSL сертификат – катинарчето в браузъра, което вдъхва доверие на клиентите.</p>
           <ul class="check-list">
             <li>Безплатен домейн</li>
             <li>Бърз хостинг</li>
@@ -963,7 +998,7 @@
         <div class="feature-icon orange">📞</div>
         <div class="feature-body">
           <h3>Обади се с едно докосване</h3>
-          <p>Клиентите те намират с едно докосване – бутон за обаждане, WhatsApp, форма за запитване и интеграция с Google Maps.</p>
+          <p>Клиентите те намират с едно докосване – бутон за обаждане, WhatsApp и форма за запитване. Всичко видно и лесно достъпно.</p>
           <ul class="check-list">
             <li>Бутон "Обади се"</li>
             <li>WhatsApp интеграция</li>
@@ -974,8 +1009,8 @@
       <div class="feature-card reveal">
         <div class="feature-icon blue">⚡</div>
         <div class="feature-body">
-          <h3>Бърз сайт = повече клиенти</h3>
-          <p>Правим бързи сайтове, защото Google класира по-бързите по-напред. Мобилна оптимизация и скорост са наш приоритет.</p>
+          <h3>Перфектен вид на всяко устройство</h3>
+          <p>Сайтът изглежда еднакво добре на телефон, таблет и компютър. Бавен или разместен сайт отблъсква клиента – нашите зареждат мигновено и изглеждат професионално.</p>
           <ul class="check-list">
             <li>Мобилна оптимизация</li>
             <li>Оптимизирани изображения</li>
@@ -1080,7 +1115,7 @@
           <li><span class="pf-icon">✅</span> Безплатен домейн</li>
           <li><span class="pf-icon">✅</span> SSL сертификат (HTTPS)</li>
           <li><span class="pf-icon">✅</span> Мобилна оптимизация</li>
-          <li><span class="pf-icon">✅</span> Google Maps интеграция</li>
+
           <li><span class="pf-icon">✅</span> Неограничени редакции по всяко време</li>
           <li><span class="pf-icon">✅</span> Хостинг включен</li>
           <li><span class="pf-icon">✅</span> Готово за 2-3 работни дни</li>
@@ -1114,8 +1149,8 @@
         <div class="faq-a">Можеш да ни пишеш по всяко време и да искаш промени – нова снимка, промяна на цена, добавяне на услуга, корекция на текст. Правим промяната в рамките на 24 часа без доплащане, колкото и пъти да е нужно.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Ще се появявам ли в Google?<span class="faq-arrow">▼</span></div>
-        <div class="faq-a">Правим всичко възможно сайтът ти да се появява в Google – настройваме оптимизация и регистрираме бизнеса ти в Google Maps. В началото позициите се изграждат постепенно, тъй като Google сам преценява кой да класира по-напред. С времето и редовното съдържание резултатите идват.</div>
+        <div class="faq-q">Как уебсайтът помага на бизнеса ми?<span class="faq-arrow">▼</span></div>
+        <div class="faq-a">Главната полза е доверието. Когато клиент чуе за теб – от приятел, от обява или от където и да е – първото нещо, което прави, е да провери дали имаш уебсайт. Ако намери красив и професионален сайт с твоите услуги, снимки и контакти, доверието е спечелено. Ако няма нищо – в повечето случаи избира някой друг.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Правите ли сайтове за всякакви ремонтни бизнеси?<span class="faq-arrow">▼</span></div>
@@ -1135,8 +1170,8 @@
   <div class="container">
     <div class="section-head reveal">
       <span class="tag">🚀 Действай сега</span>
-      <h2>За месец май остават само <span class="hl">няколко свободни места</span></h2>
-      <p class="section-sub">Поемаме ограничен брой нови клиенти, за да се фокусираме максимално върху всеки сайт. Не изчаквай – местата се изчерпват.</p>
+      <h2>Клиентите избират <span class="hl">бизнеса, на когото се доверяват</span></h2>
+      <p class="section-sub">Всеки ден без уебсайт е ден, в който клиенти виждат конкурента ти – и избират него. Започни с безплатно демо, без никакво задължение.</p>
     </div>
     <div class="cta-actions reveal">
       <button class="btn btn-orange" onclick="openModal()" style="font-size:1.1rem;padding:20px 48px;">Запази място сега →</button>
@@ -1247,19 +1282,10 @@
     const btn = document.getElementById('submitBtn');
     const phone    = document.getElementById('fieldPhone').value;
     const business = document.getElementById('fieldBusiness').value;
-    btn.textContent = 'Изпращане...';
+    btn.classList.add('btn-loading');
     btn.disabled = true;
     await sendToTelegram(phone, business);
-    closeModal();
-    e.target.reset();
-    btn.textContent = 'Изпрати запитване →';
-    btn.disabled = false;
-    // Show brief success inside modal area via alert-free inline message
-    const successDiv = document.createElement('div');
-    successDiv.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#166534;color:#fff;padding:24px 36px;border-radius:16px;font-weight:700;font-size:1rem;z-index:400;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5)';
-    successDiv.innerHTML = '✅ Получихме запитването ти!<br><span style="font-size:.85rem;opacity:.85;font-weight:400">Ще разгледаме и ще изградим демо за теб.</span>';
-    document.body.appendChild(successDiv);
-    setTimeout(() => successDiv.remove(), 3500);
+    window.location.href = '/thank-you';
   }
 </script>
 </body>
